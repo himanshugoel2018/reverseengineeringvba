@@ -1,0 +1,21 @@
+@startuml Calculator
+actor "User" as caluser
+participant "Calculator" as calci 
+participant "Gateway" as GW
+participant "Identity Server" as ISP
+participant "Rest API" as restapi
+database "SQL Server" as sqls
+skinparam style strictuml
+caluser -> calci ++ : Sum
+group Step: Authentication
+    calci -> GW ++ : GET api/v1/orders \n Bearer Token
+    GW -> ISP ++ : Authenticate Token
+    ISP --> ISP : Validate Token
+    GW <- ISP : Success, Token validated
+else Authentication Failed
+    GW <- ISP --: Request Failed
+    calci <- GW : Authentication Failure
+    note right: Authentication Failed
+end
+caluser <- calci -- : Result 
+@enduml
