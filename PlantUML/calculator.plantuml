@@ -1,0 +1,15 @@
+@startuml cal
+actor User
+participant "Excel" as Excel
+participant "Workbook" as Workbook
+participant "Worksheet" as Worksheet
+
+User -> Excel : Open Workbook
+Excel -> Workbook : Get Worksheet("Calculator")
+Workbook -> Worksheet : Get Value("A2")
+Workbook -> Worksheet : Get Value("B2")
+Worksheet -> Worksheet : Calculate Sum(num1 + num2)
+Worksheet -> Worksheet : Write Result("D2", result)
+User <- Excel : Display Updated Worksheet
+
+@enduml
